@@ -56,7 +56,7 @@ app.get('/movies', (req, res) => {
 
 app.use(morgan('common'));
 
-app.use('/public', express.static('public'));
+app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
