@@ -2,11 +2,90 @@
 <html>
 <head>
   <title>Documentation</title>
+  <style>
+  table, th, td {
+    border: 1px solid;
+    text-align: left;
+  }
+</style>
 </head>
 <body>
   <h1>MyFlix</h1>
   <p>The objective of this project is to build the server-side component of a "movies" web application.
     The web application will provide users with access to information about different movies, directors, and genres.
     Users will be able to sign up, update their personal information, and create a list of their favorite movies.</p>
+    <h2>End Points</h2>
+    <table>
+      <tr>
+        <th>Business Logic</th>
+        <th>URL</th>
+        <th>HTTP Method</th>
+        <th>Request body data format</th>
+        <th>Response body data format</th>
+      </tr>
+      <tr>
+        <td>Return a list of all movies</td>
+        <td>/movies</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about all the movies</td>
+      </tr>
+      <tr>
+        <td>Return data (description, genre, director, image URL, whether it's featured or not) about a single movie by title</td>
+        <td>/movies/[title]</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about the particular movie requested</td>
+      </tr>
+      <tr>
+        <td>Return data about a genre (description) by name/title</td>
+        <td>/movies/genre/[genreName]</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about the genre (description)</td>
+      </tr>
+      <tr>
+        <td>Return data about a director (bio, birth year, death year) by name</td>
+        <td>/movies/director/[directorName]</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about the director (bio, birth year, death year)</td>
+      </tr>
+      <tr>
+        <td>Allow new users to register</td>
+        <td>/users/[id]</td>
+        <td>PUT</td>
+        <td>A JSON object holding data about the user (name, favorite movies)</td>
+        <td>A JSON object holding data about the user who was added (id, name, favorite movies)</td>
+      </tr>
+      <tr>
+        <td>Allow users to update their user info (username)</td>
+        <td>/users</td>
+        <td>PUT</td>
+        <td>A JSON object holding the user ID and new username</td>
+        <td>A JSON object holding data about the updated user (id, name, favorite movies)</td>
+      </tr>
+      <tr>
+        <td>Allow users to add a movie to their list of favorites</td>
+        <td>/users/[id]/[movieTitle]</td>
+        <td>POST</td>
+        <td>None</td>
+        <td>Returns a message saying "[movieTitle] has been added to user [id]'s array"</td>
+      </tr>
+      <tr>
+        <td>Allow users to remove a movie from their list of favorites</td>
+        <td>/users/[id]/[movieTitle]</td>
+        <td>DELETE</td>
+        <td>None</td>
+        <td>Returns a message saying "[movieTitle] has been removed from user [id]'s array"</td>
+      </tr>
+      <tr>
+        <td>Allow existing users to deregister</td>
+        <td>/users/[id]</td>
+        <td>DELETE</td>
+        <td>None</td>
+        <td>Returns a message saying "[movieTitle] has been removed from user [id]'s array"</td>
+      </tr>
+    </table>
   </body>
   </html>
