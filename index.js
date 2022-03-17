@@ -25,7 +25,7 @@ let movies = [
     title: 'The Shawshank Redemption',
     year: '1994',
     genre: {
-      name: 'Drama/Crime',
+      name: 'Drama',
       description: 'Genre Description'
     },
     director: {
@@ -37,7 +37,7 @@ let movies = [
     title: 'The Godfather',
     year: '1972',
     genre: {
-      name: 'Crime/Drama',
+      name: 'Crime',
       description: 'Genre Description'
     },
     director: {
@@ -49,7 +49,7 @@ let movies = [
     title: 'The Dark Knight',
     year: '2008',
     genre: {
-      name: 'Action/Adventure',
+      name: 'Action',
       description: 'Genre Description'
     },
     director: {
@@ -61,7 +61,7 @@ let movies = [
     title: 'The Godfather: Part II',
     year: '1974',
     genre: {
-      name: 'Crime/Drama',
+      name: 'Crime',
       description: 'Genre Description'
     },
     director: {
@@ -73,7 +73,7 @@ let movies = [
     title: '12 Angry Men',
     year: '1957',
     genre: {
-      name: 'Drama/Crime',
+      name: 'Drama',
       description: 'Genre Description'
     },
     director: {
@@ -85,7 +85,7 @@ let movies = [
     title: 'Schindler\'s List',
     year: '1993',
     genre: {
-      name: 'War/Drama',
+      name: 'War',
       description: 'Genre Description'
     },
     director: {
@@ -97,7 +97,7 @@ let movies = [
     title: 'The Lord of the Rings: The Return of the King',
     year: '2003',
     genre: {
-      name: 'Fantasy/Adventure',
+      name: 'Fantasy',
       description: 'Genre Description'
     },
     director: {
@@ -109,7 +109,7 @@ let movies = [
     title: 'Pulp Fiction',
     year: '1994',
     genre: {
-      name: 'Crime/Drama',
+      name: 'Crime',
       description: 'Genre Description'
     },
     director: {
@@ -121,7 +121,7 @@ let movies = [
     title: 'The Lord of the Rings: The Fellowship of the Ring',
     year: '2001',
     genre: {
-      name: 'Fantasy/Adventure',
+      name: 'Fantasy',
       description: 'Genre Description'
     },
     director: {
@@ -133,7 +133,7 @@ let movies = [
     title: 'The Good, the Bad and the Ugly',
     year: '1966',
     genre: {
-      name: 'Western/Spaghetti Western',
+      name: 'Western',
       description: 'Genre Description'
     },
     director: {
@@ -150,7 +150,7 @@ app.get('/movies', (req, res) => {
 
 //READ + RETURN DATA ABOUT A SINGLE MOVIE BY TITLE
 app.get('/movies/:title', (req, res) => {
-  const {title} = request.params;
+  const {title} = req.params;
   const movie = movies.find(movie => movie.title === title);
 
   if (movie) {
