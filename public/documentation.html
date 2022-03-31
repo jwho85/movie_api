@@ -26,66 +26,172 @@
       <tr>
         <td>Return a list of all movies</td>
         <td>/movies</td>
-        <td>GET</td>
-        <td>None</td>
-        <td>A JSON object holding data about all the movies</td>
-      </tr>
-      <tr>
-        <td>Return data (description, genre, director, image URL, whether it's featured or not) about a single movie by title</td>
-        <td>/movies/[title]</td>
-        <td>GET</td>
-        <td>None</td>
-        <td>A JSON object holding data about the particular movie requested</td>
-      </tr>
-      <tr>
-        <td>Return data about a genre (description) by name/title</td>
-        <td>/movies/genre/[genreName]</td>
-        <td>GET</td>
-        <td>None</td>
-        <td>A JSON object holding data about the genre (description)</td>
-      </tr>
-      <tr>
-        <td>Return data about a director (bio, birth year, death year) by name</td>
-        <td>/movies/director/[directorName]</td>
-        <td>GET</td>
-        <td>None</td>
-        <td>A JSON object holding data about the director (bio, birth year, death year)</td>
-      </tr>
-      <tr>
-        <td>Allow new users to register</td>
-        <td>/users/[id]</td>
-        <td>PUT</td>
-        <td>A JSON object holding data about the user (name, favorite movies)</td>
-        <td>A JSON object holding data about the user who was added (id, name, favorite movies)</td>
-      </tr>
-      <tr>
-        <td>Allow users to update their user info (username)</td>
-        <td>/users</td>
-        <td>PUT</td>
-        <td>A JSON object holding the user ID and new username</td>
-        <td>A JSON object holding data about the updated user (id, name, favorite movies)</td>
-      </tr>
-      <tr>
-        <td>Allow users to add a movie to their list of favorites</td>
-        <td>/users/[id]/[movieTitle]</td>
-        <td>POST</td>
-        <td>None</td>
-        <td>Returns a message saying "[movieTitle] has been added to user [id]'s array"</td>
-      </tr>
-      <tr>
-        <td>Allow users to remove a movie from their list of favorites</td>
-        <td>/users/[id]/[movieTitle]</td>
-        <td>DELETE</td>
-        <td>None</td>
-        <td>Returns a message saying "[movieTitle] has been removed from user [id]'s array"</td>
-      </tr>
-      <tr>
-        <td>Allow existing users to deregister</td>
-        <td>/users/[id]</td>
-        <td>DELETE</td>
-        <td>None</td>
-        <td>Returns a message saying "[movieTitle] has been removed from user [id]'s array"</td>
-      </tr>
-    </table>
-  </body>
-  </html>
+        <td>GET:<br>
+          <code>app.get('/movies', (req, res) => {</code>
+          </td>
+          <td>None</td>
+          <td>A JSON object holding data about all the movies:<br>
+            <code>[
+              {
+                Title: "The Shawshank Redemption",
+                Description: "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+                Genre: {
+                  Name: "Drama",
+                  Description: "Drama Films are serious presentations or stories with settings or life situations that portray realistic characters in conflict with either themselves, others, or forces of nature. A dramatic film shows us human beings at their best, their worst, and everything in-between."
+                },
+                Director: {
+                  Name: "Frank Darabont",
+                  Bio: "Frank Árpád Darabont is an American film director, screenwriter and producer. He has been nominated for three Academy Awards and a Golden Globe Award. In his early career, he was primarily a screenwriter for such horror films as A Nightmare on Elm Street 3: Dream Warriors, The Blob and The Fly II.",
+                  Birth: "1959-01-28",
+                  Death: null
+                },
+                ImagePath: "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX67_CR0,0,67,98_AL_.jpg",
+                Featured: true
+              },...
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td>Return data (description, genre, director, image URL, whether it's featured or not) about a single movie by title</td>
+          <td>/movies/:Title</td>
+          <td>GET:<br>
+            <code>app.get('/movies/:Title', (req, res) => {</code>
+            </td>
+            <td>None</td>
+            <td>A JSON object holding data about the particular movie requested:<br>
+              <code>{
+                Title: "The Shawshank Redemption",
+                Description: "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+                Genre: {
+                  Name: "Drama",
+                  Description: "Drama Films are serious presentations or stories with settings or life situations that portray realistic characters in conflict with either themselves, others, or forces of nature. A dramatic film shows us human beings at their best, their worst, and everything in-between."
+                },
+                Director: {
+                  Name: "Frank Darabont",
+                  Bio: "Frank Árpád Darabont is an American film director, screenwriter and producer. He has been nominated for three Academy Awards and a Golden Globe Award. In his early career, he was primarily a screenwriter for such horror films as A Nightmare on Elm Street 3: Dream Warriors, The Blob and The Fly II.",
+                  Birth: "1959-01-28",
+                  Death: null
+                },
+                ImagePath: "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX67_CR0,0,67,98_AL_.jpg",
+                Featured: true
+              }
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td>Return data about a genre (description) by name/title</td>
+          <td>/movies/genre/:GenreName</td>
+          <td>GET:<br>
+            <code>app.get('/movies/genre/:GenreName', (req, res) => {</code>
+            </td>
+            <td>None</td>
+            <td>A JSON object holding data about the genre (description):<br>
+              <code>"Drama Films are serious presentations or stories with settings or life situations that portray realistic characters in conflict with either themselves, others, or forces of nature. A dramatic film shows us human beings at their best, their worst, and everything in-between."
+              </code>
+            </td>
+          </tr>
+          <tr>
+            <td>Return data about a director (bio, birth year, death year) by name</td>
+            <td>/movies/director/:DirectorName</td>
+            <td>GET:<br>
+              <code>app.get('/movies/director/:DirectorName', (req, res) => {</code>
+              </td>
+              <td>None</td>
+              <td>A JSON object holding data about the director (name, bio, birth year, death year):<br>
+                <code>{
+                  Name: "Frank Darabont",
+                  Bio: "Frank Árpád Darabont is an American film director, screenwriter and producer. He has been nominated for three Academy Awards and a Golden Globe Award. In his early career, he was primarily a screenwriter for such horror films as A Nightmare on Elm Street 3: Dream Warriors, The Blob and The Fly II.",
+                  Birth: "1959-01-28",
+                  Death: null
+                }
+              </code>
+            </td>
+          </tr>
+          <tr>
+            <td>Allow new users to register</td>
+            <td>/users</td>
+            <td>PUT:<br>
+              <code>app.post('/users', (req, res) => {</code>
+              </td>
+              <td>A JSON object holding data about the user (name, favorite movies)</td>
+              <td>A JSON object holding data about the user who was added (username, password, email, birthday):<br>
+                <code>{
+                  Username: "julian",
+                  Password: "password1",
+                  Email: "julian@gmail.com",
+                  Birthday: new Date("1985-05-30"),
+                },
+              </code>
+            </td>
+          </tr>
+          <tr>
+            <td>Allow users to update their user info (username)</td>
+            <td>/users/:Username</td>
+            <td>PUT:<br>
+              <code>app.put('/users/:Username', (req, res) => {</code>
+              </td>
+              <td>A JSON object holding the user ID and new username</td>
+              <td>A JSON object holding data about the updated user (id, username, password, emai, birthday, favorite movies):<br>
+                <code>{
+                  " id": "6245028bdeb5a370920dea27",
+                  "Username": "testuser",
+                  "Password": "testpassword",
+                  "Email": "test@gmail.com",
+                  "Birthday": "1985-05-3007:00:00.000z",
+                  "FavoriteMovies": []
+                }
+              </code>
+            </td>
+          </tr>
+          <tr>
+            <td>Allow users to add a movie to their list of favorites</td>
+            <td>/users/:Username/movies/:MovieID</td>
+            <td>POST:<br>
+              <code>app.post('/users/:Username/movies/:MovieID', (req, res) => {</code>
+              </td>
+              <td>None</td>
+              <td>A JSON object holding data about the updated user (id, username, password, emai, birthday, favorite movies):<br>
+                <code>{
+                  " id": "6241fda73ea9009a0a87739f",
+                  "Username": "julian",
+                  "Password": "password1",
+                  "Email": "julian@gmail.com",
+                  "Birthday": "1985-05-30T00:00:00.000Z",
+                  "FavoriteMovies" ["6241£42f3ea9009a0a877395"]
+                }
+              </code>
+            </td>
+          </tr>
+          <tr>
+            <td>Allow users to remove a movie from their list of favorites</td>
+            <td>/users/:Username/movies/:MovieID</td>
+            <td>DELETE:<br>
+              <code>app.delete('/users/:Username/movies/:MovieID', (req, res) => {</code>
+              </td>
+              <td>None</td>
+              <td>A JSON object holding data about the updated user (id, username, password, emai, birthday, favorite movies):<br>
+                <code>{
+                  " id": "6241fda73ea9009a0a87739f",
+                  "Username": "julian",
+                  "Password": "password1",
+                  "Email": "julian@gmail.com",
+                  "Birthday": "1985-05-30T00:00:00.000Z",
+                  "FavoriteMovies" ["6241£42f3ea9009a0a877395"]
+                }
+              </code>
+            </td>
+          </tr>
+          <tr>
+            <td>Allow existing users to deregister</td>
+            <td>/users/:Username</td>
+            <td>DELETE:<br>
+              <code>app.delete('/users/:Username', (req, res) => {</code>
+              </td>
+              <td>None</td>
+              <td>Returns a message saying that the user was deleted:<br>
+                <code>avi was deleted</code>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
