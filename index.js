@@ -186,7 +186,8 @@ app.put('/users/:Username',
         res.json(updatedUser);
       }
     });
-  });
+  }
+});
 
   // Allow users to add a movie to their list of favorites
   app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -275,7 +276,7 @@ app.put('/users/:Username',
     console.error(err.stack);
     res.status(500).send('Something broke!');
   });
-  
+
   const port = process.env.PORT || 8080;
   app.listen(port, '0.0.0.0',() => {
     console.log('Listening on Port ' + port);
