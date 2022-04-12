@@ -20,6 +20,7 @@
   "homepage": "https://github.com/jwho85/movie_api#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.2",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
