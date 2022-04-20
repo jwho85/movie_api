@@ -20,25 +20,32 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const cors = require('cors');
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+// let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
 
 const { check, validationResult } = require('express-validator');
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
-      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
-      return callback(new Error(message ), false);
-    }
-    return callback(null, true);
-  }
-}));
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if(!origin) return callback(null, true);
+//     if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
+//       let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+//       return callback(new Error(message ), false);
+//     }
+//     return callback(null, true);
+//   }
+// }));
+
+app.use(cors());
 
 let auth = require('./auth')(app);
 
 const passport = require('passport');
 require('./passport');
+
+const handleError = (err, res) => {
+  console.error(err);
+  res.status(500).send('Error: ' + err);
+}
 
 // Return a list of all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -47,8 +54,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
     res.status(201).json(movies);
   })
   .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
+    handleError(err, res);
   });
 });
 
@@ -59,8 +65,7 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
     res.json(movie);
   })
   .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
+    handleError(err, res);
   });
 });
 
@@ -71,8 +76,7 @@ app.get('/movies/genre/:GenreName', passport.authenticate('jwt', { session: fals
     res.json(movie.Genre.Description);
   })
   .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
+    handleError(err, res);
   });
 });
 
@@ -83,8 +87,7 @@ app.get('/movies/director/:DirectorName', passport.authenticate('jwt', { session
     res.json(movie.Director);
   })
   .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
+    handleError(err, res);
   });
 });
 
@@ -133,14 +136,12 @@ app.post('/users',
       })
       .then((user) => { res.status(201).json(user) })
       .catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
+        handleError(err, res);
       });
     }
   })
   .catch((error) => {
-    console.error(error);
-    res.status(500).send('Error: ' + error);
+    handleError(err, res);
   });
 });
 
@@ -182,8 +183,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
   { new: true }, // This line makes sure that the updated document is returned
   (err, updatedUser) => {
     if(err) {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
+      handleError(err, res);
     } else {
       res.json(updatedUser);
     }
@@ -198,8 +198,7 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
   { new: true }, // This line makes sure that the updated document is returned
   (err, updatedUser) => {
     if (err) {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
+      handleError(err, res);
     } else {
       res.json(updatedUser);
     }
@@ -214,8 +213,7 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
   { new: true }, // This line makes sure that the updated document is returned
   (err, updatedUser) => {
     if (err) {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
+      handleError(err, res);
     } else {
       res.json(updatedUser);
     }
@@ -233,8 +231,7 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
     }
   })
   .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
+    handleError(err, res);
   });
 });
 
@@ -247,8 +244,7 @@ app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) =
     res.status(201).json(users);
   })
   .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
+    handleError(err, res);
   });
 });
 
@@ -259,8 +255,7 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
     res.json(user);
   })
   .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
+    handleError(err, res);
   });
 });
 
