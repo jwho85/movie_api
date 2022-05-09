@@ -49,26 +49,26 @@ const handleError = (err, res) => {
 
 // Return a list of all movies
 
-// app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
-//   Movies.find()
-//   .then((movies) => {
-//     res.status(201).json(movies);
-//   })
-//   .catch((err) => {
-//     handleError(err, res);
-//   });
-// });
-
-app.get("/movies", function (req, res) {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
-    .then(function (movies) {
+    .then((movies) => {
       res.status(201).json(movies);
     })
-    .catch(function (error) {
-      console.error(error);
-      res.status(500).send("Error: " + error);
+    .catch((err) => {
+      handleError(err, res);
     });
 });
+
+// app.get("/movies", function (req, res) {
+//   Movies.find()
+//     .then(function (movies) {
+//       res.status(201).json(movies);
+//     })
+//     .catch(function (error) {
+//       console.error(error);
+//       res.status(500).send("Error: " + error);
+//     });
+// });
 
 // Return data about a single movie by title
 app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
